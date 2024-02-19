@@ -1,0 +1,2 @@
+Run : pip install -r requirements.txt
+And run python minetimelaunch.py !
