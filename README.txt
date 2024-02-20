@@ -1,0 +1,1 @@
+if you can't launch MineTime just open a command prompt and cd to the folder and type : game.exe ChangeThis
