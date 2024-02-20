@@ -1,5 +1,5 @@
 from ursina import *
-BLOCKSELECT_NUMBER_LIST = ["1","2","3"]
+BLOCKSELECT_NUMBER_LIST = ["1","2","3","4"]
 def BLOCKSELECT_SELECT(key):
     print(f"Touch : {key} ")
     with open("cache/actualblock.txt", "r+") as f:
@@ -13,4 +13,7 @@ def BLOCKSELECT_SELECT(key):
             f.close
         elif key == "3":
              f.write("3")
+             f.close
+        elif key == "4":
+             f.write("4")
              f.close

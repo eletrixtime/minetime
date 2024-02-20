@@ -21,9 +21,12 @@ class Voxel(Button):
             return 'assets/block/grass/texture.png'
         elif block_type == 3:
             return 'assets/block/plank/texture.png'
+        elif block_type == 999:
+            return 'assets/block/bedrock/texture.png'
+        elif block_type == 4:
+            return 'assets/block/tnt/texture.png'
         else:
-            return 'assets/block/dirt/texture.png' 
-
+            return 'assets/block/notfound.png' 
 
     def on_click_voxel(self):
         with open("cache/actualtool.txt", "r+") as f:
@@ -43,12 +46,17 @@ class Voxel(Button):
                         temp = Voxel(position=position, block_type=2)
                     elif value1 == 3:
                         temp = Voxel(position=position, block_type=3)
+                    elif value1 == 4:
+                        temp = Voxel(position=position, block_type=4)
 
 class Terrain:
     def __init__(self, spacing=1.0):
         for z in range(random.randint(10,30)):
-            for x in range(random.randint(10,30)):
+            for x in range(random.randint(5,10)):
                     voxel = Voxel(position=(x * spacing, 0, z * spacing), block_type=2, scale=0.5)
-                    for y in range(5):
-                        y - 5
-                        voxel = Voxel(position=(x * spacing, -y, z * spacing), block_type=1, scale=0.5)
+                    for y in range(10):
+                        y1 = y
+                        y1 = y1 + 1 
+                        voxel = Voxel(position=(x * spacing, -y1, z * spacing), block_type=1, scale=0.5)
+                        #y1 = y1 + 5
+                        #voxelbedrock = Voxel(position=(x * spacing, -y1, z * spacing), block_type=4, scale=0.5)
