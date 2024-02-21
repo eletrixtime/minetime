@@ -35,6 +35,7 @@ try:
     from utils.world.terrain import Terrain
     from utils.player import Player
     from utils.others import blockselect
+    import os, sys
 except:
     print("FAILED TO IMPORT UTIL !")
 
@@ -46,17 +47,52 @@ MENU_BUTTON_START_BUTTON = None
 MENU_BUTTON_EXIT_BUTTON = None   
 MENU_IMAGE_UTIL_LOGO_ENTITY = None
 MENU_BUTTON_REPLAY_BUTTON = None
+newworld = None
+grid = None
 player = None
-def destroymenu():
+selected_world = None
+def select_world(filename):
+    global grid
+    if grid:
+        destroy(grid)  
+        destroy(newworld)
+    global selected_world
+    selected_world5 = os.path.join("worlds", filename)
+    if filename == "NEWWORLDqdqsd":
+        terrain = Terrain()
+        player = Player()
+        player.enabled = True          
+        player.position = (0, 0, 0)
+    else:
+        
+        terrain = Terrain(selected_world5)
+        player = Player()
+        player.enabled = True          
+        player.position = (0, 0, 0)
 
+def destroymenu():
     global player
+    global grid
+    global newworld
+    destroy(newworld)
     destroy(MENU_BUTTON_START_BUTTON)
     destroy(MENU_BUTTON_EXIT_BUTTON)
     destroy(MENU_IMAGE_UTIL_LOGO_ENTITY)
-    terrain = Terrain()
-    player = Player()
-    player.enabled = True
-    player.position = (0, 0, 0)
+
+    grid = Entity() 
+
+    newworld = Button(text='New world', scale=(0.2, 0.1), position=(0, -0.4), color=color.red, on_click=lambda: select_world(str("NEWWORLDqdqsd")))
+    for i, filename in enumerate(os.listdir("worlds")):
+        if os.path.isfile(os.path.join("worlds", filename)):
+            print(filename)
+            btn = Button(text=filename, color=color.green, parent=grid, on_click=lambda: select_world(str(filename)))
+
+            btn.y = i * 1  
+            btn.scale = (0.5, 0.5) 
+    
+   
+
+
     #Sky(texture="assets/png/skybox.png")
 print("[MAIN] : Loaded main menu")
 def mainmenu():

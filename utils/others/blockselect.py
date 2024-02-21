@@ -1,7 +1,7 @@
 from ursina import *
 BLOCKSELECT_NUMBER_LIST = ["1","2","3","4"]
 def BLOCKSELECT_SELECT(key):
-    print(f"Touch : {key} ")
+    #print(f"Touch : {key} ")
     with open("cache/actualblock.txt", "r+") as f:
         value = f.read()
         f.seek(0) 
