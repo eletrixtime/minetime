@@ -105,6 +105,7 @@ class Terrain:
         with open(self.world_path, "w") as f:
             json.dump(data, f, default=lambda o: o.__dict__)
 
+
     def manual_save_world(self):
         print("Saving #")
         self.save_lock.acquire()

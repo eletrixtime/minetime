@@ -47,6 +47,7 @@ MENU_BUTTON_START_BUTTON = None
 MENU_BUTTON_EXIT_BUTTON = None   
 MENU_IMAGE_UTIL_LOGO_ENTITY = None
 MENU_BUTTON_REPLAY_BUTTON = None
+MENU_BUTTON_START_BUTTON_MP = None
 newworld = None
 grid = None
 player = None
@@ -78,6 +79,7 @@ def destroymenu():
     destroy(MENU_BUTTON_START_BUTTON)
     destroy(MENU_BUTTON_EXIT_BUTTON)
     destroy(MENU_IMAGE_UTIL_LOGO_ENTITY)
+    destroy(MENU_BUTTON_START_BUTTON_MP)
 
     grid = Entity() 
 
@@ -99,12 +101,14 @@ def mainmenu():
     global MENU_BUTTON_START_BUTTON
     global MENU_BUTTON_START_BUTTON
     global MENU_IMAGE_UTIL_LOGO_ENTITY
+    global MENU_BUTTON_START_BUTTON_MP
     global MENU_BUTTON_EXIT_BUTTON
     MENU_IMAGE_UTIL_LOGO_ENTITY = Entity(model='quad', texture="assets/png/minetime.png")
     MENU_IMAGE_UTIL_LOGO_ENTITY.scale = (5.3, 1.3)
     MENU_IMAGE_UTIL_LOGO_ENTITY.position = (0, 3)
     MENU_BUTTON_START_BUTTON = Button(text='Start Game', scale=(0.2, 0.1), position=(0, 0), color=color.green, on_click=destroymenu)
-    MENU_BUTTON_EXIT_BUTTON = Button(text='Exit', scale=(0.2, 0.1), position=(0, -0.2), color=color.red, on_click=exit)
+    MENU_BUTTON_START_BUTTON_MP = Button(text='Multiplayer 👀', scale=(0.2, 0.1), position=(0, -0.2), color=color.orange, on_click=destroymenu)
+    MENU_BUTTON_EXIT_BUTTON = Button(text='Exit', scale=(0.2, 0.1), position=(0, -0.4), color=color.red, on_click=exit)
 
 #============================================================================
 
