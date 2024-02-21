@@ -1,8 +1,8 @@
 # [IN DEV] MineTime
 
-MineTime is a game created for EletrixTime Youtube Channel !
+MineTime is a voxel-game created in python !
 
-Is a OpenSource minecraft like !
+DISCORD >> SOON
 
 # Control :
  - Normal control ! (w,q,s,d)
@@ -16,3 +16,4 @@ Is a OpenSource minecraft like !
 - [ ] Perlin Noise génération
 - [ ] TNT
 - [ ] Modding system (not sure)  
+
