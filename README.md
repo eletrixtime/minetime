@@ -12,6 +12,7 @@ DISCORD >> SOON
 
 - [x] Saving/Load system
 - [X] Update system (without downloading)
+- [ ] Discord RPC (rich presence)
 - [ ] Multiplayer 👀
 - [ ] Optimiziation
 - [ ] Perlin Noise génération
