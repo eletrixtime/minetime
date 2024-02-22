@@ -11,6 +11,7 @@ DISCORD >> SOON
 # Todo :
 
 - [x] Saving/Load system
+- [X] Update system (without downloading)
 - [ ] Multiplayer 👀
 - [ ] Optimiziation
 - [ ] Perlin Noise génération
