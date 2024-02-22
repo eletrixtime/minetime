@@ -1,6 +1,8 @@
 # [IN DEV] MineTime
 
-MineTime is a voxel-game created in python !
+![logo](https://github.com/EletrixtimeYT/files/blob/main/minetime.png?raw=true "LOGO")
+
+  MineTime is a voxel-game created in python !
 
 DISCORD >> SOON
 
