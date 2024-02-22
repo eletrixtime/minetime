@@ -154,7 +154,7 @@ def input(key):
             destroy(MENU_BUTTON_EXIT_BUTTON)
             destroy(MENU_IMAGE_UTIL_LOGO_ENTITY)
             mouse.locked = True  
-print(updatechecker.check()) 
+
 if updatechecker.check() == True:
     mainmenu()
 else:
