@@ -3,7 +3,9 @@ import random
 import json
 import os
 import threading
+import time
 # Thank GPT for the saving/load system (j'avais la flemmeeee)
+
 class Voxel(Button):
     def __init__(self, position=(2, 0, 0), block_type=1, scale=0.5, world_path=None, terrain_instance=None):
         super().__init__(
@@ -73,8 +75,8 @@ class Terrain:
                 self.load_from_json(data)
 
         self.save_lock = threading.Lock()
-        self.save_world_timer = threading.Timer(10, self.manual_save_world)
-        self.save_world_timer.start()
+        self.save_thread = threading.Thread(target=self.auto_save_world, daemon=True)
+        self.save_thread.start()
 
     def generate_random_terrain(self, spacing):
         terrain_data = []
@@ -96,7 +98,6 @@ class Terrain:
         for voxel_data in data:
             Voxel(position=voxel_data['position'], block_type=voxel_data['block_type'], terrain_instance=self)
 
-
     def save_to_json(self, data):
         for voxel_data in data:
             position = voxel_data['position']
@@ -105,23 +106,18 @@ class Terrain:
         with open(self.world_path, "w") as f:
             json.dump(data, f, default=lambda o: o.__dict__)
 
+    def auto_save_world(self):
+        while True:
+            print("Saving #")
+            self.save_lock.acquire()
 
-    def manual_save_world(self):
-        print("Saving #")
-        self.save_lock.acquire()
+            world_data = []
+            for entity in scene.entities:
+                if isinstance(entity, Voxel):
+                    world_data.append({'position': entity.position, 'block_type': entity.block_type, 'scale': entity.scale})
 
-        world_data = []
-        for entity in scene.entities:
-            if isinstance(entity, Voxel):
-                world_data.append({'position': entity.position, 'block_type': entity.block_type, 'scale': entity.scale})
+            self.save_to_json(world_data)
 
-        save_thread = threading.Thread(target=self.save_to_json, args=(world_data,))
-        save_thread.start()
-
-        save_thread.join() 
-
-        self.save_lock.release()
-        print("Saving DONE")
-        self.save_world_timer = threading.Timer(20, self.manual_save_world)
-        self.save_world_timer.start()
-
+            self.save_lock.release()
+            print("Saving DONE")
+            time.sleep(20)  

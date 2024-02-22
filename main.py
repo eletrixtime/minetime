@@ -21,14 +21,14 @@ print("""  __  __ _____ _   _ ______ _______ _____ __  __ ______
 from ursina import *
 import argparse
 from ursina import mouse
-
+from utils.others import updatechecker
 parser = argparse.ArgumentParser(description='MineTime a clone of Minecraft !')
 
 parser.add_argument('username', type=str, help='Username')
 #DISABLED DUE A BUG :parser.add_argument('--debug', action='store_true', help='Enable Debug mode')
 args = parser.parse_args()
 USERNAME = args.username
-app = Ursina(development_mode=True,borderless=False, fullscreen=False, title=f"MineTime Beta-0.0.2 | Logged as {USERNAME}")
+app = Ursina(development_mode=True,borderless=False, fullscreen=False, title=f"MineTime {updatechecker.TYPE}-{updatechecker.VERSION}{updatechecker.PATCHNUMBER} | Logged as {USERNAME}")
 
 try:
 
@@ -48,10 +48,15 @@ MENU_BUTTON_EXIT_BUTTON = None
 MENU_IMAGE_UTIL_LOGO_ENTITY = None
 MENU_BUTTON_REPLAY_BUTTON = None
 MENU_BUTTON_START_BUTTON_MP = None
+MENU_BUTTON_EXIT_BUTTON = None
+MENU_UPDATE_GUI_TEXT = None
+
 newworld = None
 grid = None
 player = None
 selected_world = None
+
+
 def select_world(filename):
     global grid
     if grid:
@@ -97,18 +102,31 @@ def destroymenu():
 
     #Sky(texture="assets/png/skybox.png")
 print("[MAIN] : Loaded main menu")
+
 def mainmenu():
-    global MENU_BUTTON_START_BUTTON
+    global MENU_BUTTON_EXIT_BUTTON  
+    if MENU_BUTTON_EXIT_BUTTON:
+        destroy(MENU_BUTTON_EXIT_BUTTON)
+    destroy(MENU_UPDATE_GUI_TEXT)
     global MENU_BUTTON_START_BUTTON
     global MENU_IMAGE_UTIL_LOGO_ENTITY
     global MENU_BUTTON_START_BUTTON_MP
-    global MENU_BUTTON_EXIT_BUTTON
     MENU_IMAGE_UTIL_LOGO_ENTITY = Entity(model='quad', texture="assets/png/minetime.png")
     MENU_IMAGE_UTIL_LOGO_ENTITY.scale = (5.3, 1.3)
     MENU_IMAGE_UTIL_LOGO_ENTITY.position = (0, 3)
     MENU_BUTTON_START_BUTTON = Button(text='Start Game', scale=(0.2, 0.1), position=(0, 0), color=color.green, on_click=destroymenu)
-    MENU_BUTTON_START_BUTTON_MP = Button(text='Multiplayer 👀', scale=(0.2, 0.1), position=(0, -0.2), color=color.orange, on_click=destroymenu)
+    MENU_BUTTON_START_BUTTON_MP = Button(text='Multiplayer', scale=(0.2, 0.1), position=(0, -0.2), color=color.orange, on_click=destroymenu)
     MENU_BUTTON_EXIT_BUTTON = Button(text='Exit', scale=(0.2, 0.1), position=(0, -0.4), color=color.red, on_click=exit)
+
+def updategui():
+    global MENU_UPDATE_GUI_TEXT
+    global MENU_BUTTON_EXIT_BUTTON
+    descr = dedent('''Hi ! a update is available ! please go to our github for downloading latest update ! or you can skip it !''').strip()
+
+    Text.default_resolution = 1080 * Text.size
+    MENU_UPDATE_GUI_TEXT = Text(text=descr, wordwrap=30)
+    MENU_BUTTON_EXIT_BUTTON = Button(text='Skip', scale=(0.2, 0.1), position=(0, -0.4), color=color.red, on_click=mainmenu)
+
 
 #============================================================================
 
@@ -135,8 +153,12 @@ def input(key):
             
             destroy(MENU_BUTTON_EXIT_BUTTON)
             destroy(MENU_IMAGE_UTIL_LOGO_ENTITY)
-            mouse.locked = True   
-
-mainmenu()
+            mouse.locked = True  
+print(updatechecker.check()) 
+if updatechecker.check() == True:
+    mainmenu()
+else:
+    print("UPDATE AVAILABLE")
+    updategui()
 window.exit_button.visible = False
 app.run()
